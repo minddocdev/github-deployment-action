@@ -24,7 +24,7 @@ Create github deployment
 
 ```yaml
 - name: Create deployment
-  uses: minddocdev/github-deployment-action@master
+  uses: minddocdev/github-deployment-action@releases/v1
   with:
     token: ${{ github.token }}
     ref: master

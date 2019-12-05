@@ -23,11 +23,9 @@
   "dependencies": {
     "@actions/core": "^1.2.0",
     "@actions/github": "^1.1.0",
-    "common-tags": "^1.8.0",
     "js-yaml": "^3.13.1"
   },
   "devDependencies": {
-    "@types/common-tags": "^1.8.0",
     "@types/jest": "^24.0.23",
     "@types/js-yaml": "^3.12.1",
     "@types/node": "^12.12.14",

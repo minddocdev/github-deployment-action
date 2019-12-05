@@ -24,7 +24,6 @@ jobs:
   test:
     name: lint and test
     runs-on: ubuntu-latest
-    container: minddocdev/node-alpine-ci:latest
     steps:
     - name: Checkout git repository
       uses: actions/checkout@v1.2.0
@@ -32,5 +31,38 @@ jobs:
       run: yarn install --frozen-lockfile
     - name: Lint code
       run: yarn lint
+    - name: Test code
+      run: yarn test
+    - name: Build code
+      run: yarn build
+    - name: Upload built code
+      uses: actions/upload-artifact@master
+      with:
+        name: build
+        path: lib/
+  release:
+    name: release
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout git repository
+      uses: actions/checkout@v1.2.0
+    - name: Download build
+      uses: actions/download-artifact@master
+      with:
+        name: build
+        path: lib/
+    - name: Install prod yarn dependencies
+      run: yarn --prod
+    - name: Commit release
+      run: |
+        rm .gitignore
+        git config --local user.name "Android 18"
+        git config --local user.email android18@minddoc.de
+        git config --local github.email android18@minddoc.de
+        git config --local github.user minddocbot
+        git checkout -b releases/v1
+        git add node_modules lib
+        git commit -a -m "Release version v1"
+        git push origin releases/v1
     - name: Test code
       run: yarn test
